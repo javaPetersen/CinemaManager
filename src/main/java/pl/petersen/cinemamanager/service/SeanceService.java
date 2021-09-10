@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.petersen.cinemamanager.entity.Seance;
 import pl.petersen.cinemamanager.repository.SeanceRepository;
+import pl.petersen.cinemamanager.repository.TicketTypeRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -12,10 +13,12 @@ import java.util.Optional;
 public class SeanceService {
 
     private final SeanceRepository seanceRepository;
+    private final TicketTypeRepository ticketTypeRepository;
 
     @Autowired
-    public SeanceService(SeanceRepository seanceRepository) {
+    public SeanceService(SeanceRepository seanceRepository, TicketTypeRepository ticketTypeRepository) {
         this.seanceRepository = seanceRepository;
+        this.ticketTypeRepository = ticketTypeRepository;
     }
 
 

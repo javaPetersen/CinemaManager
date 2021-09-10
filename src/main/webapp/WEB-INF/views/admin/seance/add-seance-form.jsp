@@ -34,9 +34,9 @@
                 </tr>
 
                 <tr>
-                    <td><form:label path="ticketType">Typ biletów:</form:label></td>
-                    <td><form:select path="ticketType" multiple="true" items="${ticketTypes}" itemLabel="nameAndPrice"/></td>
-                    <td><form:errors path="ticketType" cssClass="text-danger"/></td>
+                    <td><form:label path="ticketTypes">Typ biletów:</form:label></td>
+                    <td><form:select path="ticketTypes" multiple="true" items="${ticketTypes}" itemLabel="nameAndPrice"/></td>
+                    <td><form:errors path="ticketTypes" cssClass="text-danger"/></td>
                 </tr>
 
                 <tr>

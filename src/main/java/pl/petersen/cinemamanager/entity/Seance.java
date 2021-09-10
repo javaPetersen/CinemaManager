@@ -10,7 +10,8 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -28,8 +29,8 @@ public class Seance {
     @OneToOne
     private Hall hall;
 
-    @ManyToMany(mappedBy = "seances")
-    private List<TicketType> ticketType;
+    @ManyToMany
+    private Set<TicketType> ticketTypes = new HashSet<>();
 
     @NotNull
     @DateTimeFormat(pattern = "yyyy-MM-dd")
