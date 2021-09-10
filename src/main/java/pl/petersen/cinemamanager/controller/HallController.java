@@ -1,17 +1,18 @@
 package pl.petersen.cinemamanager.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 import pl.petersen.cinemamanager.entity.Hall;
 import pl.petersen.cinemamanager.entity.Seat;
 import pl.petersen.cinemamanager.service.HallService;
 
-import javax.transaction.Transactional;
 import javax.validation.Valid;
-import java.util.*;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Controller
@@ -29,7 +30,7 @@ public class HallController {
     public String addNewHall(Model model, Long hallId) {
         Hall hall;
         if (hallId != null) {
-            hall = hallService.findById(hallId).orElse(new Hall());
+            hall = hallService.findById(hallId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         } else {
             hall = new Hall();
         }
@@ -65,7 +66,7 @@ public class HallController {
 
     @GetMapping("/details")
     public String hallDetails(@RequestParam Long detailsId, Model model) {
-        Hall hall = hallService.findById(detailsId).orElse(new Hall());
+        Hall hall = hallService.findById(detailsId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         List<Seat> seats = hall.getSeats().stream()
                 .sorted()
                 .collect(Collectors.toList());

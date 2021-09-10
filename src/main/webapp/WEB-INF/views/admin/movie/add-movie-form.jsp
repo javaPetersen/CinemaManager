@@ -19,7 +19,7 @@
 <div id="content-wrapper" class="d-flex flex-column">
     <div id="content">
         <table class="table">
-            <form:form method="post" modelAttribute="movie">
+            <form:form method="post" enctype="multipart/form-data" modelAttribute="movie">
                 <form:input path="id" hidden="true"/>
                 <form:input path="createdOn" hidden="true"/>
                 <tr>
@@ -63,9 +63,8 @@
                     <td><form:textarea path="description" rows="10" cols="60"/></td>
                     <td><form:errors path="description" cssClass="text-danger"/></td>
                 </tr>
-                <td><form:label path="poster">Plakat:</form:label></td>
-                <td><form:input type="file" path="poster"/></td>
-                <td><form:errors path="poster" cssClass="text-danger"/></td>
+                <td><label for="poster">Plakat:</label></td>
+                <td><input id="poster" type="file" name="file" accept="image/jpeg,image.jpg,image.png" /></td>
                 <tr>
 
                 </tr>

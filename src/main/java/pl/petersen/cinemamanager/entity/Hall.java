@@ -33,6 +33,7 @@ public class Hall {
     @Min(1)
     private Integer numOfSeatsPerRow;
 
+    @NotEmpty
     @ManyToMany
     @JoinTable(name = "seats_halls")
     private Set<Seat> seats = new HashSet<>();

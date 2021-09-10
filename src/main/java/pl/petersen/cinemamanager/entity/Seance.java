@@ -7,6 +7,7 @@ import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -23,12 +24,15 @@ public class Seance {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull
     @OneToOne
     private Movie movie;
 
+    @NotNull
     @OneToOne
     private Hall hall;
 
+    @NotEmpty
     @ManyToMany
     private Set<TicketType> ticketTypes = new HashSet<>();
 

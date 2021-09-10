@@ -1,10 +1,12 @@
 package pl.petersen.cinemamanager.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pl.petersen.cinemamanager.entity.Hall;
 import pl.petersen.cinemamanager.entity.Movie;
@@ -44,7 +46,7 @@ public class SeanceController {
         }
         Seance seance;
         if (seanceId != null) {
-            seance = seanceService.findById(seanceId).orElse(new Seance());
+            seance = seanceService.findById(seanceId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         } else {
             seance = new Seance();
         }

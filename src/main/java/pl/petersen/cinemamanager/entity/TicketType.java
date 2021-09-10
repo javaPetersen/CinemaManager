@@ -23,15 +23,16 @@ public class TicketType {
     private String name;
 
     @NotNull
-    @Column(nullable= false, precision=7, scale=2)
-    @Digits(integer=9, fraction=2)
+    @Column(nullable = false, precision = 7, scale = 2)
+    @Digits(integer = 9, fraction = 2)
     @DecimalMin("0.00")
     private BigDecimal price;
 
+    @NotEmpty
     @ManyToMany(mappedBy = "ticketTypes")
     private Set<Seance> seances = new HashSet<>();
 
     public String getNameAndPrice() {
-        return String.format("%s : %.2f pln",name, price);
+        return String.format("%s : %.2f pln", name, price);
     }
 }
