@@ -10,4 +10,6 @@ public class ServletInitializer extends SpringBootServletInitializer {
         return application.sources(CinemaManagerApplication.class);
     }
 
+
+
 }
