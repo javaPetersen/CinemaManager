@@ -68,7 +68,7 @@
 
         <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseMovies"
+            <a class="nav-link collapsed" href="/admin/movies/all" data-toggle="collapse" data-target="#collapseMovies"
                aria-expanded="true" aria-controls="collapseMovies">
                 <i class="fas fa-fw fa-cog"></i>
                 <span>Zarządzaj filmami</span>
@@ -76,7 +76,7 @@
             <div id="collapseMovies" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Operacje:</h6>
-                    <a class="collapse-item" href="/admin/movies">Wyświetl wszystkie</a>
+                    <a class="collapse-item" href="/admin/movies/all">Wyświetl wszystkie</a>
                     <a class="collapse-item" href="/admin/movies/add">Dodaj nowy</a>
                 </div>
             </div>
@@ -84,7 +84,7 @@
 
         <!-- Nav Item - Utilities Collapse Menu -->
         <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTickets"
+            <a class="nav-link collapsed" href="/admin/ticket-types/all" data-toggle="collapse" data-target="#collapseTickets"
                aria-expanded="true" aria-controls="collapseTickets">
                 <i class="fas fa-fw fa-wrench"></i>
                 <span>Zarządzaj biletami</span>
@@ -99,7 +99,7 @@
             </div>
         </li>
         <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseHall"
+            <a class="nav-link collapsed" href="/admin/hall/all" data-toggle="collapse" data-target="#collapseHall"
                aria-expanded="true" aria-controls="collapseHall">
                 <i class="fas fa-fw fa-wrench"></i>
                 <span>Sale kinowe</span>
@@ -110,6 +110,21 @@
                     <h6 class="collapse-header">Operacje:</h6>
                     <a class="collapse-item" href="/admin/hall/all">Wszystkie sale</a>
                     <a class="collapse-item" href="/admin/hall/add">Dodaj nową salę</a>
+                </div>
+            </div>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="/admin/seances/all" data-toggle="collapse" data-target="#collapseSeance"
+               aria-expanded="true" aria-controls="collapseSeance">
+                <i class="fas fa-fw fa-wrench"></i>
+                <span>Zarządzaj seansami</span>
+            </a>
+            <div id="collapseSeance" class="collapse" aria-labelledby="headingUtilities"
+                 data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Operacje:</h6>
+                    <a class="collapse-item" href="/admin/seances/all">Wszystkie seanse</a>
+                    <a class="collapse-item" href="/admin/seances/add">Zaplanuj seans</a>
                 </div>
             </div>
         </li>

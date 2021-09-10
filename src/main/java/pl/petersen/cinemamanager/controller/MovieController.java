@@ -4,17 +4,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import pl.petersen.cinemamanager.entity.Movie;
 import pl.petersen.cinemamanager.exception.MovieNotFoundException;
 import pl.petersen.cinemamanager.service.MovieService;
 
-import javax.imageio.ImageIO;
 import javax.validation.Valid;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.IOException;
 
 
 @Controller
@@ -30,7 +28,7 @@ public class MovieController {
     }
 
 
-    @GetMapping("")
+    @GetMapping("/all")
     public String allMovies(Model model) {
         model.addAttribute("movies", movieService.findAllOrderByNewest());
         return "admin/movie/all-movies";
@@ -54,15 +52,14 @@ public class MovieController {
             return "admin/movie/add-movie-form";
         }
         movieService.save(movie);
-        return "redirect:/admin/movies";
+        return "redirect:/admin/movies/all";
     }
 
     @PostMapping("/delete")
     public String deleteMovie(Long deleteId) {
         movieService.deleteById(deleteId);
-        return "redirect:/admin/movies";
+        return "redirect:/admin/movies/all";
     }
-
 
 
 }
