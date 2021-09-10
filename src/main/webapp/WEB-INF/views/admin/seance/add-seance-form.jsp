@@ -1,4 +1,5 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: peter
@@ -18,6 +19,10 @@
 </div>
 <div id="content-wrapper" class="d-flex flex-column">
     <div id="content">
+        <div><c:if test="${not empty error}">
+            <h6 class="h6 mb-0 text-danger">${error}</h6>
+        </c:if>
+    </div>
         <table class="table">
             <form:form method="post" modelAttribute="seance">
                 <form:input path="id" hidden="true"/>

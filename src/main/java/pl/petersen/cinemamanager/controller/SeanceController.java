@@ -4,10 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pl.petersen.cinemamanager.entity.Hall;
 import pl.petersen.cinemamanager.entity.Movie;
 import pl.petersen.cinemamanager.entity.Seance;
@@ -38,15 +36,20 @@ public class SeanceController {
     }
 
     @GetMapping("/add")
-    public String addSeanceForm(Model model, Long seanceId) {
-    Seance seance;
-    if (seanceId != null) {
-        seance = seanceService.findById(seanceId).orElse(new Seance());
-    } else {
-        seance = new Seance();
-    }
-    model.addAttribute("seance", seance);
-    return "/admin/seance/add-seance-form";
+    public String addSeanceForm(Model model, Long seanceId,
+                                @RequestParam(required = false) boolean error) {
+        if (error) {
+            model.addAttribute("error", "Nie można utworzyć seansu w wybranej sali, " +
+                    "ponieważ w tym czasie odbywa się tam inny seans.");
+        }
+        Seance seance;
+        if (seanceId != null) {
+            seance = seanceService.findById(seanceId).orElse(new Seance());
+        } else {
+            seance = new Seance();
+        }
+        model.addAttribute("seance", seance);
+        return "/admin/seance/add-seance-form";
     }
 
     @PostMapping("/add")
@@ -55,18 +58,22 @@ public class SeanceController {
         if (result.hasErrors()) {
             return "/admin/seance/add-seance-form";
         }
+        System.out.println(seanceService.isHallAvailable(seance));
+        if (!seanceService.isHallAvailable(seance)) {
+            if (seance.getId() == null) {
+                seance.setId(-1L);
+            }
+            return "redirect:/admin/seances/add?error=true&seanceId=" + seance.getId();
+        }
         seanceService.save(seance);
         return "redirect:/admin/seances/all";
     }
+
 
     @GetMapping("/all")
     public String showSeances() {
         return "/admin/seance/all-seance";
     }
-
-
-
-
 
 
     @ModelAttribute("seances")

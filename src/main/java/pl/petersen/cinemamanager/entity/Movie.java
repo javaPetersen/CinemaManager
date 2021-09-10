@@ -69,4 +69,13 @@ public class Movie {
     }
 
 
+    public String getConvertedLength() {
+        if (this.length > 59) {
+            long hours = this.length / 60;
+            long minutes = this.length % 60;
+            return hours + "h. " + minutes + "min.";
+        } else {
+            return this.length + "min.";
+        }
+    }
 }
