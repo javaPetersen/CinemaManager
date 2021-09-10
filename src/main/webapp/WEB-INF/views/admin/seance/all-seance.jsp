@@ -33,6 +33,7 @@
                 <th scope="col">Film</th>
                 <th scope="col">Data</th>
                 <th scope="col">Godzina</th>
+                <th scope="col">Czas trwania</th>
                 <th scope="col">Sala</th>
                 <th scope="col" colspan="2" style="text-align:center">Akcja</th>
             </tr>
@@ -44,6 +45,7 @@
                     <td>${s.movie.title}</td>
                     <td>${s.date}</td>
                     <td>${s.time}</td>
+                    <td>${s.movie.convertedLength}</td>
                     <td>${s.hall.name}</td>
                     <form action="/admin/seances/add">
                         <td style='display: inline-block; padding: 1px;'>

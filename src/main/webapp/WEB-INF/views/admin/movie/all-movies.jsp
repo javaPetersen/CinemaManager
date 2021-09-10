@@ -40,8 +40,9 @@
             <c:forEach items="${movies}" var="m" varStatus="loop">
                 <tr>
                     <th scope="row">${loop.index+1}</th>
+                    <td><img src="<c:url value="${pageContext.request.contextPath}${m.poster}"/>" height="80px"/></td>
                     <td>${m.title}</td>
-                    <td>${m.length}</td>
+                    <td>${m.convertedLength}</td>
                     <td>${m.director}</td>
                     <form action="/admin/movies/add">
                         <td style='display: inline-block; padding: 1px'>

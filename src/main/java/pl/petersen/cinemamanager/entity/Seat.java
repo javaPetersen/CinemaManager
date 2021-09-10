@@ -1,22 +1,23 @@
 package pl.petersen.cinemamanager.entity;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.util.Comparator;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @Entity
-@ToString
 @Table(name = "seats")
-public class Seat implements Comparable<Seat>{
+public class Seat implements Comparable<Seat> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -31,8 +32,9 @@ public class Seat implements Comparable<Seat>{
     @Min(1)
     private Integer number;
 
+    @NotEmpty
     @ManyToMany(mappedBy = "seats")
-    private List<Hall> halls;
+    private List<Hall> halls = new ArrayList<>();
 
     public Seat(Character row, Integer number) {
         this.row = row;

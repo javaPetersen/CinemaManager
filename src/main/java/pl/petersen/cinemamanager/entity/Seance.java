@@ -7,10 +7,12 @@ import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -22,14 +24,17 @@ public class Seance {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull
     @OneToOne
     private Movie movie;
 
+    @NotNull
     @OneToOne
     private Hall hall;
 
-    @ManyToMany(mappedBy = "seances")
-    private List<TicketType> ticketType;
+    @NotEmpty
+    @ManyToMany
+    private Set<TicketType> ticketTypes = new HashSet<>();
 
     @NotNull
     @DateTimeFormat(pattern = "yyyy-MM-dd")

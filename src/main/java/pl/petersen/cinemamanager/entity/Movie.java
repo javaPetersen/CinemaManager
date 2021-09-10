@@ -2,21 +2,19 @@ package pl.petersen.cinemamanager.entity;
 
 
 import lombok.*;
-import org.hibernate.annotations.Nationalized;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
+import javax.servlet.annotation.MultipartConfig;
 import javax.validation.constraints.*;
-import java.sql.Blob;
+import java.awt.*;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor()
-@ToString
 @Table(name = "movies")
 public class Movie {
     @Id
@@ -30,6 +28,7 @@ public class Movie {
     @Size(min = 1, max = 200)
     private String originalTitle;
 
+    @NotEmpty
     @Size(max = 1000)
     private String description;
 
@@ -53,9 +52,7 @@ public class Movie {
     @Column(name = "updated_on")
     private LocalDateTime updatedOn;
 
-    @Lob
-    @Column(columnDefinition = "BLOB")
-    private byte[] poster;
+    private String poster;
 
     @PrePersist
     public void setCreatedOn() {
@@ -69,4 +66,13 @@ public class Movie {
     }
 
 
+    public String getConvertedLength() {
+        if (this.length > 59) {
+            long hours = this.length / 60;
+            long minutes = this.length % 60;
+            return hours + "h. " + minutes + "min.";
+        } else {
+            return this.length + "min.";
+        }
+    }
 }
