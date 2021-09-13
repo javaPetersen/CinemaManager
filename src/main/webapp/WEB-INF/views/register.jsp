@@ -77,16 +77,13 @@
                                     <form:input path="password" type="password" class="form-control form-control-user"
                                                 placeholder="Password"/>
                                 </div>
-                                <div>
-                                    <form:errors path="password" class="text-danger"/>
-                                </div>
                                 <div class="col-sm-6">
                                     <form:input path="passwordMatcher" type="password"
                                                 class="form-control form-control-user"
                                                 placeholder="Repeat Password"/>
                                 </div>
                                 <div>
-                                    <form:errors path="passwordMatcher" class="text-danger"/>
+                                    <form:errors path="password" class="text-danger"/>
                                 </div>
                                 <div>
                                     <form:errors objectError="user" class="text-danger"/>

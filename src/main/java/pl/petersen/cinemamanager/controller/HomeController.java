@@ -1,5 +1,6 @@
 package pl.petersen.cinemamanager.controller;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,10 +22,11 @@ public class HomeController {
         this.userService = userService;
     }
 
-    @GetMapping("")
-    public String login() {
-        return "login";
+    @GetMapping("/login")
+    public String loginForm() {
+        return "login2";
     }
+
 
     @GetMapping("register")
     public String registerForm(Model model) {
@@ -39,12 +41,19 @@ public class HomeController {
             return "register";
         }
         if (userService.checkEmail(user)) {
-            result.rejectValue("email","user.email", "An account already exists for this email.");
+            result.rejectValue("email","user.email",
+                    "An account already exists for this email.");
+            return "register";
+        }
+        if (!userService.checkPasswordMatch(user)) {
+            result.rejectValue("password", "user.password",
+                    "passwords don't match");
             return "register";
         }
         userService.save(user);
         return "login";
     }
+
 
 
 

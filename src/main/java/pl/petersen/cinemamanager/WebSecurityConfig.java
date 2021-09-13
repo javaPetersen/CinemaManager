@@ -30,7 +30,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/admin/**").hasRole("ADMIN")
-                .and().formLogin().permitAll();
+                .antMatchers("/login").permitAll()
+                .anyRequest().authenticated()
+                .and()
+                .formLogin()
+                .defaultSuccessUrl("/admin/movies/all")
+                .and()
+                .logout()
+                .deleteCookies("JSESSIONID");
     }
 
     @Bean

@@ -1,9 +1,7 @@
 package pl.petersen.cinemamanager.entity;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import pl.petersen.cinemamanager.validators.Email;
 import pl.petersen.cinemamanager.validators.PasswordMatches;
 
@@ -16,8 +14,6 @@ import javax.validation.constraints.Size;
 @Getter
 @Setter
 @Entity
-@NoArgsConstructor
-@PasswordMatches
 @Table(name = "cnm_users")
 public class User {
     @Id
@@ -45,7 +41,7 @@ public class User {
     @Pattern(regexp = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$",
             message = "Password should contains minimum eight characters, " +
                     "at least one uppercase letter, one lowercase letter, one number and one special character.")
-    @Size(min = 8, max = 30)
+    @Size(min = 8, max = 90)
     private String password;
 
     @Transient

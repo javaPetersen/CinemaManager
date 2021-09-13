@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.BindingResult;
 import pl.petersen.cinemamanager.entity.User;
 import pl.petersen.cinemamanager.repository.UserRepository;
 
@@ -25,9 +26,12 @@ public class UserService {
     public void save(User user) {
         user.setActive(true);
         user.setRole("ROLE_USER");
-        String encode = passwordEncoder.encode(user.getPassword());
-        System.out.println(encode);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
+    }
+
+    public Boolean checkPasswordMatch(User user) {
+        return user.getPassword().equals(user.getPasswordMatcher());
     }
 
     public boolean checkEmail(User user) {
