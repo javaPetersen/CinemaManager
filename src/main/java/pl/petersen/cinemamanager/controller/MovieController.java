@@ -14,14 +14,7 @@ import org.springframework.web.server.ResponseStatusException;
 import pl.petersen.cinemamanager.entity.Movie;
 import pl.petersen.cinemamanager.service.MovieService;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.io.File;
-import java.io.IOException;
-import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 
 @Controller
@@ -56,12 +49,13 @@ public class MovieController {
     }
 
     @PostMapping("/add")
-    public String processForm(@Valid Movie movie, @RequestParam(required = false) MultipartFile file,
-                              BindingResult bindingResult, HttpServletRequest request) {
+    public String processForm(@Valid Movie movie,
+                              @RequestParam(required = false) MultipartFile file,
+                              BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "admin/movie/add-movie-form";
         }
-        movieService.save(movie, file, request);
+        movieService.save(movie, file);
         return "redirect:/admin/movies/all";
     }
 

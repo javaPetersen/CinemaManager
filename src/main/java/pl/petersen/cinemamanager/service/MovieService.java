@@ -6,7 +6,6 @@ import org.springframework.web.multipart.MultipartFile;
 import pl.petersen.cinemamanager.entity.Movie;
 import pl.petersen.cinemamanager.repository.MovieRepository;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -24,18 +23,23 @@ public class MovieService {
     }
 
 
-    public void save(Movie movie, MultipartFile poster, HttpServletRequest request) {
-        if (poster != null) {
-            Path newFile = Paths.get("src/main/webapp/uploads/posters/" +
-                    movie.getTitle().replaceAll(" ", "_") + ".jpg");
-            try {
-                poster.transferTo(newFile);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            movie.setPoster(newFile.toString().substring(15));
+    public void save(Movie movie, MultipartFile poster) {
+        if (!poster.isEmpty()) {
+            setPoster(movie, poster);
         }
         movieRepository.save(movie);
+    }
+
+    private Movie setPoster(Movie movie, MultipartFile poster) {
+        Path newFile = Paths.get("src/main/webapp/uploads/posters/" +
+                movie.getTitle().replaceAll(" ", "_") + ".jpg");
+        try {
+            poster.transferTo(newFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        movie.setPoster(newFile.toString().substring(15));
+        return movie;
     }
 
 
