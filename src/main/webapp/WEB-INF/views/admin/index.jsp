@@ -7,6 +7,6 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:include page="fragments/admin-header.jsp" />
-<h1>TEST</h1>
+<h1>Witaj</h1>
 
 <jsp:include page="fragments/admin-footer.jsp" />

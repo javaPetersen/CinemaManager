@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%--
   Created by IntelliJ IDEA.
   User: peter
@@ -50,28 +51,32 @@
                                 <div class="text-center">
                                     <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                                 </div>
-                                <form class="user" action="/admin/login" method="post">
+                                <form:form class="user" modelAttribute="user" method="post">
                                     <div class="form-group">
-                                        <input type="email" class="form-control form-control-user"
-                                               id="user" name="user" aria-describedby="emailHelp"
-                                               placeholder="Enter Email Address...">
+                                        <form:input path="email" type="email" class="form-control form-control-user"
+                                               name="user" aria-describedby="emailHelp"
+                                               placeholder="Enter Email Address..."/>
                                     </div>
                                     <div class="form-group">
-                                        <input type="password" class="form-control form-control-user"
-                                               id="password" name="password" placeholder="Password">
+                                        <form:input path="password" type="password" class="form-control form-control-user"
+                                               name="password" placeholder="Password"/>
                                     </div>
+                                    <div>
+                                        <form:errors objectError="*" cssClass="text-danger" />
+                                    </div>
+
                                     <div class="form-group">
                                         <div class="custom-control custom-checkbox small">
-                                            <input type="checkbox" class="custom-control-input" id="customCheck">
+                                            <input  type="checkbox" name="remember-me" class="custom-control-input" id="customCheck">
                                             <label class="custom-control-label" for="customCheck">Remember
                                                 Me</label>
                                         </div>
                                     </div>
-                                    <a href="index.html" class="btn btn-primary btn-user btn-block">
+                                    <form:button class="btn btn-primary btn-user btn-block">
                                         Login
-                                    </a>
+                                    </form:button>
                                     <hr>
-                                </form>
+                                </form:form>
 
                             </div>
                         </div>
