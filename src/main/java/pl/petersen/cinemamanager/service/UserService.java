@@ -8,6 +8,7 @@ import org.springframework.validation.BindingResult;
 import pl.petersen.cinemamanager.entity.User;
 import pl.petersen.cinemamanager.repository.UserRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -39,4 +40,7 @@ public class UserService {
         return potentialUser.isPresent();
     }
 
+    public List<User> findAll() {
+        return userRepository.findAll();
+    }
 }

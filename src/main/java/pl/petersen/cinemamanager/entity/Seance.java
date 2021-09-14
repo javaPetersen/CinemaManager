@@ -12,6 +12,7 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -43,6 +44,9 @@ public class Seance {
     @NotNull
     @DateTimeFormat(pattern = "HH:mm")
     private LocalTime time;
+
+    @OneToMany(mappedBy = "seance")
+    private List<Reservation> reservations;
 
 
 }

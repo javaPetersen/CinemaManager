@@ -9,6 +9,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 
 @Getter
@@ -47,9 +48,16 @@ public class User {
     @Transient
     private String passwordMatcher;
 
+    @OneToMany(mappedBy = "user")
+    private List<Reservation> reservation;
+
     private Boolean active;
 
     private String role;
+
+    public String getFullName() {
+        return firstName + " " + lastName;
+    }
 
 
 }

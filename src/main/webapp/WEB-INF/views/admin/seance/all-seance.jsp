@@ -54,13 +54,13 @@
                             </button>
                         </td>
                     </form>
-<%--                    <form action="/admin/seances/details" method="get">--%>
-<%--                        <td style='display: inline-block; padding: 1px;'>--%>
-<%--                            <button type="submit" name="detailsId" value="${s.id}"--%>
-<%--                                    class="btn btn-outline-info">SZCZEGÓŁY--%>
-<%--                            </button>--%>
-<%--                        </td>--%>
-<%--                    </form>--%>
+                    <form action="/admin/seances/reservation" method="get">
+                        <td style='display: inline-block; padding: 1px;'>
+                            <button type="submit" name="reservationId" value="${s.id}"
+                                    class="btn btn-outline-info">Zarezerwuj
+                            </button>
+                        </td>
+                    </form>
 <%--                    <form action="/admin/hall/delete" method="post">--%>
 <%--                        <td style='display: inline-block; padding: 1px'>--%>
 <%--                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>--%>

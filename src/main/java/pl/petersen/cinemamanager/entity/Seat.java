@@ -36,9 +36,19 @@ public class Seat implements Comparable<Seat> {
     @ManyToMany(mappedBy = "seats")
     private List<Hall> halls = new ArrayList<>();
 
+    @ManyToMany(mappedBy = "seats")
+    private List<Reservation> reservation;
+
+
+
+
     public Seat(Character row, Integer number) {
         this.row = row;
         this.number = number;
+    }
+
+    public String getFullName(){
+        return row + "-" + number;
     }
 
 
