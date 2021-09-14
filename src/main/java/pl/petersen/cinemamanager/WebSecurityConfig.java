@@ -37,6 +37,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .defaultSuccessUrl("/admin/movies/all")
                 .and()
                 .logout()
+                .invalidateHttpSession(true)
                 .deleteCookies("JSESSIONID");
     }
 

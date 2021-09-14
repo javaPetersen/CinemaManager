@@ -54,6 +54,11 @@ public class HomeController {
         return "login";
     }
 
+    @GetMapping("/admin")
+    public String showDashboard() {
+        return "admin/index";
+    }
+
 
 
 
