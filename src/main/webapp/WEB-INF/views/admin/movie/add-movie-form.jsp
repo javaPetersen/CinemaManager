@@ -1,4 +1,5 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: peter
@@ -16,10 +17,14 @@
         <a onclick="window.history.back()" class="btn btn-outline-success" role="button" aria-pressed="true">Powrót</a>
     </div>
 </div>
+<div class="d-sm-flex align-items-center justify-content-between mb-4 text-danger">
+    <c:if test="${not empty error}">
+        <h5>${error}</h5>
+    </c:if> </div>
 <div id="content-wrapper" class="d-flex flex-column">
     <div id="content">
         <table class="table">
-            <form:form method="post" enctype="multipart/form-data" modelAttribute="movie">
+            <form:form method="post" modelAttribute="movie">
                 <form:input path="id" hidden="true"/>
                 <form:input path="createdOn" hidden="true"/>
                 <tr>
@@ -35,7 +40,7 @@
                 </tr>
 
                 <tr>
-                    <td><form:label path="length">Czas trwania(min):</form:label></td>
+                    <td><form:label path="length">Czas trwania (min):</form:label></td>
                     <td><form:input path="length"/></td>
                     <td><form:errors path="length" cssClass="text-danger"/></td>
                 </tr>
@@ -63,16 +68,16 @@
                     <td><form:textarea path="description" rows="10" cols="60"/></td>
                     <td><form:errors path="description" cssClass="text-danger"/></td>
                 </tr>
-                <td><label for="poster">Plakat:</label></td>
-                <td><input id="poster" type="file" name="file" accept="image/jpeg,image.jpg,image.png" /></td>
-                <tr>
 
+                <tr>
+                    <td><form:label path="poster">Link do plakatu:</form:label></td>
+                    <td><form:input type="url" path="poster"/></td>
+                    <td><form:errors path="poster" cssClass="text-danger"/></td>
                 </tr>
 
                 <tr>
                     <td><form:button class="btn btn-outline-secondary">Zapisz</form:button></td>
                 </tr>
-
             </form:form>
         </table>
     </div>

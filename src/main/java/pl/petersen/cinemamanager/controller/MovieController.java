@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pl.petersen.cinemamanager.entity.Movie;
 import pl.petersen.cinemamanager.service.MovieService;
+import pl.petersen.cinemamanager.service.SeanceService;
 
 import javax.validation.Valid;
 
@@ -50,19 +52,28 @@ public class MovieController {
 
     @PostMapping("/add")
     public String processForm(@Valid Movie movie,
-                              @RequestParam(required = false) MultipartFile file,
-                              BindingResult bindingResult) {
+                              BindingResult bindingResult,
+                              RedirectAttributes redirectAttributes) {
+        if (!movieService.ifMovieHasActiveSeance(movie)) {
+            redirectAttributes.addFlashAttribute("error",
+                    "Nie można zwiększyć czasu trwania filmu, ponieważ ma on aktywny seans");
+            return "redirect:/admin/movies/add?movieId=" + movie.getId();
+        }
+
         if (bindingResult.hasErrors()) {
             return "admin/movie/add-movie-form";
         }
-        movieService.save(movie, file);
+        movieService.save(movie);
         return "redirect:/admin/movies/all";
     }
 
 
     @PostMapping("/delete")
-    public String deleteMovie(Long deleteId) {
-        movieService.deleteById(deleteId);
+    public String deleteMovie(Long deleteId, RedirectAttributes redirectAttributes) {
+        if (!movieService.deleteById(deleteId)) {
+            redirectAttributes.addFlashAttribute("error",
+                    "Nie można usunąć filmu, ponieważ jest on aktualnie używany.");
+        }
         return "redirect:/admin/movies/all";
     }
 

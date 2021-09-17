@@ -4,12 +4,11 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -26,6 +25,7 @@ public class Hall {
 
     @NotNull
     @Min(1)
+    @Max(26)
     @Column(name = "hall_rows")
     private Integer rows;
 
@@ -33,7 +33,6 @@ public class Hall {
     @Min(1)
     private Integer numOfSeatsPerRow;
 
-    @NotEmpty
     @ManyToMany
     @JoinTable(name = "seats_halls")
     private Set<Seat> seats = new HashSet<>();

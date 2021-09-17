@@ -7,11 +7,14 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.util.WebUtils;
 import pl.petersen.cinemamanager.entity.Hall;
 import pl.petersen.cinemamanager.entity.Seat;
 import pl.petersen.cinemamanager.service.HallService;
 
 import javax.validation.Valid;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,7 +30,7 @@ public class HallController {
     }
 
     @GetMapping("/add")
-    public String addNewHall(Model model, Long hallId) {
+    public String addNewHall(@RequestParam(required = false) Long hallId, Model model) {
         Hall hall;
         if (hallId != null) {
             hall = hallService.findById(hallId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
@@ -40,7 +43,13 @@ public class HallController {
 
     @PostMapping("/add")
     public String processingHallForm(@Valid Hall hall,
-                                     BindingResult result) {
+                                     BindingResult result,
+                                     RedirectAttributes redirectAttributes) {
+        if (hallService.doesHallContainAnyReservations(hall)) {
+            redirectAttributes.addFlashAttribute("error",
+                    "nie można zmniejszyć liczby miejsc, ponieważ w tej sali są aktywne rezerwacje.");
+            return "redirect:/admin/hall/add?hallId=" + hall.getId();
+        }
         if (result.hasErrors()) {
             return "/admin/hall/add-hall-form";
         }
@@ -59,8 +68,10 @@ public class HallController {
     }
 
     @PostMapping("/delete")
-    public String deleteHall(Long deleteId) {
-        hallService.deleteById(deleteId);
+    public String deleteHall(Long deleteId, RedirectAttributes redirectAttributes) {
+        if (!hallService.deleteById(deleteId)) {
+            redirectAttributes.addFlashAttribute("error", "Nie można usunąć, ponieważ sala jest obecnie używana");
+        }
         return "redirect:/admin/hall/all";
     }
 

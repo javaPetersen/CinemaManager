@@ -1,8 +1,10 @@
 package pl.petersen.cinemamanager.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.server.ResponseStatusException;
 import pl.petersen.cinemamanager.entity.Movie;
 import pl.petersen.cinemamanager.repository.MovieRepository;
 
@@ -16,30 +18,25 @@ import java.util.Optional;
 public class MovieService {
 
     private final MovieRepository movieRepository;
+    private final SeanceService seanceService;
 
     @Autowired
-    public MovieService(MovieRepository movieRepository) {
+    public MovieService(MovieRepository movieRepository, SeanceService seanceService) {
         this.movieRepository = movieRepository;
+        this.seanceService = seanceService;
     }
 
-
-    public void save(Movie movie, MultipartFile poster) {
-        if (!poster.isEmpty()) {
-            setPoster(movie, poster);
-        }
+    public void save(Movie movie) {
         movieRepository.save(movie);
     }
 
-    private Movie setPoster(Movie movie, MultipartFile poster) {
-        Path newFile = Paths.get("src/main/webapp/uploads/posters/" +
-                movie.getTitle().replaceAll(" ", "_") + ".jpg");
-        try {
-            poster.transferTo(newFile);
-        } catch (IOException e) {
-            e.printStackTrace();
+    public Boolean ifMovieHasActiveSeance(Movie movie) {
+        Movie oldMovie = movieRepository.findById(movie.getId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        long count = seanceService.countByMovieId(movie.getId());
+        if (count > 0) {
+            return movie.getLength() <= oldMovie.getLength();
         }
-        movie.setPoster(newFile.toString().substring(15));
-        return movie;
+        return true;
     }
 
 
@@ -51,8 +48,12 @@ public class MovieService {
         return movieRepository.findById(movieId);
     }
 
-    public void deleteById(Long id) {
-        movieRepository.deleteById(id);
+    public Boolean deleteById(Long id) {
+        if (seanceService.countByMovieId(id) == 0) {
+            movieRepository.deleteById(id);
+            return true;
+        }
+        return false;
     }
 
 

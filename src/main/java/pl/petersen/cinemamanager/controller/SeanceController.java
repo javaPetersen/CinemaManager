@@ -42,7 +42,7 @@ public class SeanceController {
                                 @RequestParam(required = false) boolean error) {
         if (error) {
             model.addAttribute("error", "Nie można utworzyć seansu w wybranej sali, " +
-                    "ponieważ w tym czasie odbywa się tam inny seans.");
+                    "ponieważ w tym czasie odbywa się w niej inny seans.");
         }
         Seance seance;
         if (seanceId != null) {
@@ -71,12 +71,23 @@ public class SeanceController {
         return "redirect:/admin/seances/all";
     }
 
+    @PostMapping("/delete")
+    public String deleteSeance(Long deleteId, RedirectAttributes redirectAttributes) {
+        if (!seanceService.deleteById(deleteId)) {
+            redirectAttributes.addFlashAttribute("error",
+                    "Nie można usunąć seansu, ponieważ posiada aktywne rezerwacje.");
+        }
+        return "redirect:/admin/seances/all";
+    }
+
+
+
+
 
     @GetMapping("/all")
     public String showSeances() {
         return "/admin/seance/all-seance";
     }
-
 
     @ModelAttribute("seances")
     public List<Seance> allSeances() {

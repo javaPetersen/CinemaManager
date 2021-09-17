@@ -129,6 +129,21 @@
                 </div>
             </div>
         </li>
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="/admin/reservation/all" data-toggle="collapse" data-target="#collapseReservation"
+               aria-expanded="true" aria-controls="collapseReservation">
+                <i class="fas fa-fw fa-wrench"></i>
+                <span>Zarządzaj rezerwacjami</span>
+            </a>
+            <div id="collapseReservation" class="collapse" aria-labelledby="headingUtilities"
+                 data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Operacje:</h6>
+                    <a class="collapse-item" href="/admin/reservation/all">Wszystkie rezerwacje</a>
+                    <a class="collapse-item" href="/admin/seances/all">Zarezerwuj miejsca</a>
+                </div>
+            </div>
+        </li>
 
 
         <!-- Divider -->

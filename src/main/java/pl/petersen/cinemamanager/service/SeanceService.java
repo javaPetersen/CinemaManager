@@ -12,10 +12,12 @@ import java.util.Optional;
 public class SeanceService {
 
     private final SeanceRepository seanceRepository;
+    private final ReservationService reservationService;
 
     @Autowired
-    public SeanceService(SeanceRepository seanceRepository) {
+    public SeanceService(SeanceRepository seanceRepository, ReservationService reservationService) {
         this.seanceRepository = seanceRepository;
+        this.reservationService = reservationService;
     }
 
 
@@ -37,6 +39,27 @@ public class SeanceService {
         return seances.stream()
                 .filter(s -> s.getDate().equals(seance.getDate()) && s.getHall().equals(seance.getHall()))
                 .allMatch(s -> seance.getTime().isAfter(s.getTime().plusMinutes(s.getMovie().getLength()))
-                || seance.getTime().plusMinutes(seance.getMovie().getLength()).isBefore(s.getTime()));
+                        || seance.getTime().plusMinutes(seance.getMovie().getLength()).isBefore(s.getTime()));
+    }
+
+    public long countByHallId(Long hallId) {
+        return seanceRepository.countByHallId(hallId);
+    }
+
+    public long countByTicketTypesId(Long ticketTypeId) {
+        return seanceRepository.countByTicketTypesId(ticketTypeId);
+    }
+
+    public long countByMovieId(Long id) {
+        return seanceRepository.countByMovieId(id);
+    }
+
+    public Boolean deleteById(Long deleteId) {
+        long count = reservationService.countBySeanceId(deleteId);
+        if (count == 0) {
+            seanceRepository.deleteById(deleteId);
+            return true;
+        }
+        return false;
     }
 }

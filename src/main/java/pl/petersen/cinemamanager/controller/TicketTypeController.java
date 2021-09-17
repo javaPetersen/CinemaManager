@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pl.petersen.cinemamanager.entity.TicketType;
 import pl.petersen.cinemamanager.service.TicketTypeService;
 
@@ -19,7 +20,6 @@ import java.util.List;
 @Controller
 @RequestMapping("/admin/ticket-types")
 public class TicketTypeController {
-
 
     private final TicketTypeService ticketTypeService;
 
@@ -61,8 +61,11 @@ public class TicketTypeController {
     }
 
     @PostMapping("/delete")
-    public String deleteTicketType(Long deleteId) {
-        ticketTypeService.deleteById(deleteId);
+    public String deleteTicketType(Long deleteId, RedirectAttributes redirectAttributes) {
+        if (!ticketTypeService.deleteById(deleteId)) {
+            redirectAttributes.addFlashAttribute("error",
+                    "Nie można usunąć, ten typ biletu jest aktualnie używany.");
+        }
         return "redirect:/admin/ticket-types/all";
     }
 
