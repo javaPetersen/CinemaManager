@@ -30,7 +30,7 @@ public class HallController {
     }
 
     @GetMapping("/add")
-    public String addNewHall(Model model, Long hallId) {
+    public String addNewHall(@RequestParam(required = false) Long hallId, Model model) {
         Hall hall;
         if (hallId != null) {
             hall = hallService.findById(hallId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
@@ -43,7 +43,13 @@ public class HallController {
 
     @PostMapping("/add")
     public String processingHallForm(@Valid Hall hall,
-                                     BindingResult result) {
+                                     BindingResult result,
+                                     RedirectAttributes redirectAttributes) {
+        if (hallService.doesHallContainAnyReservations(hall)) {
+            redirectAttributes.addFlashAttribute("error",
+                    "nie można zmniejszyć liczby miejsc, ponieważ w tej sali są aktywne rezerwacje.");
+            return "redirect:/admin/hall/add?hallId=" + hall.getId();
+        }
         if (result.hasErrors()) {
             return "/admin/hall/add-hall-form";
         }

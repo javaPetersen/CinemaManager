@@ -1,14 +1,19 @@
 package pl.petersen.cinemamanager.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 import pl.petersen.cinemamanager.entity.Hall;
-import pl.petersen.cinemamanager.entity.Seance;
+import pl.petersen.cinemamanager.entity.Reservation;
 import pl.petersen.cinemamanager.entity.Seat;
 import pl.petersen.cinemamanager.repository.HallRepository;
 import pl.petersen.cinemamanager.repository.SeatRepository;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class HallService {
@@ -16,14 +21,32 @@ public class HallService {
     private final HallRepository hallRepository;
     private final SeatRepository seatRepository;
     private final SeanceService seanceService;
+    private final ReservationService reservationService;
 
     @Autowired
-    public HallService(HallRepository hallRepository, SeatRepository seatRepository, SeanceService seanceService) {
+    public HallService(HallRepository hallRepository, SeatRepository seatRepository, SeanceService seanceService, ReservationService reservationService) {
         this.hallRepository = hallRepository;
         this.seatRepository = seatRepository;
         this.seanceService = seanceService;
+        this.reservationService = reservationService;
     }
 
+
+    public Boolean doesHallContainAnyReservations(Hall hall) {
+        if (hall.getId() == null) {
+            return false;
+        }
+        Optional<Hall> oldHall = hallRepository.findById(hall.getId());
+        List<Reservation> allReservations = reservationService.findAll();
+        if (oldHall.isPresent()) {
+            if (allReservations.stream()
+                    .anyMatch(r -> r.getSeance().getHall().equals(oldHall.get()))) {
+                return hall.getNumOfSeatsPerRow() < oldHall.get().getNumOfSeatsPerRow()
+                        || hall.getRows() < oldHall.get().getRows();
+            }
+        }
+        return false;
+    }
 
     public Optional<Hall> findById(Long hallId) {
         return hallRepository.findById(hallId);
