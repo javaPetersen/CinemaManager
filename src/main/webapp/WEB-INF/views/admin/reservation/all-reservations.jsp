@@ -33,7 +33,8 @@
                 <th scope="col">Data</th>
                 <th scope="col">Godzina</th>
                 <th scope="col">Użytkownik</th>
-                <th scope="col" colspan="5">Miejsca</th>
+                <th scope="col">Miejsca</th>
+                <th scope="col">Akcja</th>
             </tr>
             </thead>
             <tbody>
@@ -44,9 +45,24 @@
                     <td>${r.seance.date}</td>
                     <td>${r.seance.time}</td>
                     <td>${r.user.fullName}</td>
-                    <c:forEach items="${r.seats}" var="s">
-                        <td>${s.fullName}</td>
-                    </c:forEach>
+
+                    <td><select disabled multiple class="custom-select" size="2" style="width: 80px;">
+                        <c:forEach items="${r.seats}" var="s" varStatus="loop">
+                            <option>${s.fullName}</option>
+                        </c:forEach>
+                    </select></td>
+
+                    <form action="/admin/reservation/delete" method="post">
+                        <td style='display: inline-block; padding: 1px'>
+                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                            <input name="deleteId" value="${r.id}" hidden>
+                            <button onclick="return confirm('Are you sure?')"
+                                    type="submit"
+                                    class="btn btn-outline-danger">USUŃ
+                            </button>
+                        </td>
+                    </form>
+
                 </tr>
             </c:forEach>
             </tbody>

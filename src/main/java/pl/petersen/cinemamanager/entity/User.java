@@ -3,7 +3,6 @@ package pl.petersen.cinemamanager.entity;
 import lombok.Getter;
 import lombok.Setter;
 import pl.petersen.cinemamanager.validators.Email;
-import pl.petersen.cinemamanager.validators.PasswordMatches;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;

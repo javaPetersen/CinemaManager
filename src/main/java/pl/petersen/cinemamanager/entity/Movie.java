@@ -1,13 +1,12 @@
 package pl.petersen.cinemamanager.entity;
 
 
-import lombok.*;
-import org.springframework.web.multipart.MultipartFile;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
-import javax.servlet.annotation.MultipartConfig;
 import javax.validation.constraints.*;
-import java.awt.*;
 import java.time.LocalDateTime;
 
 
@@ -37,13 +36,16 @@ public class Movie {
     @Max(300)
     private Long length;
 
-    @Size(max = 30)
+    @NotEmpty
+    @Size(min = 3, max = 50)
     private String genre;
 
-    @Size(max = 50)
+    @NotEmpty
+    @Size(min = 2, max = 40)
     private String country;
 
-    @Size(max = 80)
+    @NotEmpty
+    @Size(min = 3, max = 80)
     private String director;
 
     @Column(name = "created_on")
@@ -52,6 +54,7 @@ public class Movie {
     @Column(name = "updated_on")
     private LocalDateTime updatedOn;
 
+    @NotEmpty
     private String poster;
 
     @PrePersist

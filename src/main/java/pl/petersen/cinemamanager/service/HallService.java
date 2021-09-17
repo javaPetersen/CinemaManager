@@ -1,9 +1,7 @@
 package pl.petersen.cinemamanager.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 import pl.petersen.cinemamanager.entity.Hall;
 import pl.petersen.cinemamanager.entity.Reservation;
 import pl.petersen.cinemamanager.entity.Seat;
@@ -79,8 +77,8 @@ public class HallService {
 
 
     private Seat checkSeatExistence(Character letter, Integer num) {
-        if (seatRepository.count() > 0) {
-            List<Seat> existingSeats = getSeats();
+        List<Seat> existingSeats = getSeats();
+        if (existingSeats.size() > 0) {
             for (Seat existingSeat : existingSeats) {
                 if (existingSeat.getRow().equals(letter)
                         && existingSeat.getNumber().equals(num)) {

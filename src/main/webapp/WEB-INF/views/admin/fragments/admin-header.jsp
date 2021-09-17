@@ -42,11 +42,11 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
         <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/admin">
             <div class="sidebar-brand-icon rotate-n-15">
                 <i class="fas fa-laugh-wink"></i>
             </div>
-            <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+            <div class="sidebar-brand-text mx-3">CinemaManager <sup>v1.0.0</sup></div>
         </a>
 
         <!-- Divider -->
@@ -125,6 +125,7 @@
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Operacje:</h6>
                     <a class="collapse-item" href="/admin/seances/all">Wszystkie seanse</a>
+                    <a class="collapse-item" href="/admin/seances/inactive">Zakończone seanse</a>
                     <a class="collapse-item" href="/admin/seances/add">Zaplanuj seans</a>
                 </div>
             </div>
@@ -190,43 +191,18 @@
                     <li class="nav-item dropdown no-arrow">
                         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
+                            <span class="mr-2 d-none d-lg-inline text-gray-600 small">Opcje użytkownika</span>
                             <img class="img-profile rounded-circle"
                                  src="<c:url value="${pageContext.request.contextPath}/resources/theme/img/undraw_profile.svg" />">
                         </a>
                         <!-- Dropdown - User Information -->
                         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                              aria-labelledby="userDropdown">
-                            <a class="dropdown-item" href="#">
-                                <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Profile
-                            </a>
-                            <a class="dropdown-item" href="#">
-                                <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Settings
-                            </a>
-                            <a class="dropdown-item" href="#">
-                                <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Activity Log
-                            </a>
-                            <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="<c:url value="/logout"/>">
                                 <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Logout
+                                Wyloguj
                             </a>
                         </div>
                     </li>
-                    <a href="<c:url value="/logout"/>" >Logout</a>
                 </ul>
-
             </nav>
-            <!-- End of Topbar -->
-
-            <!-- Begin Page Content -->
-<%--            <div class="container-fluid">--%>
-
-<%--                <!-- Page Heading -->--%>
-<%--                <div class="d-sm-flex align-items-center justify-content-between mb-4">--%>
-<%--                    <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>--%>
-<%--                </div>--%>
-<%--            </div>--%>

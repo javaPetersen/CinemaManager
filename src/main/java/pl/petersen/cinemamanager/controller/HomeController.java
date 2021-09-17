@@ -1,5 +1,6 @@
 package pl.petersen.cinemamanager.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,6 +18,8 @@ public class HomeController {
 
     private final UserService userService;
 
+
+    @Autowired
     public HomeController(UserService userService) {
         this.userService = userService;
     }
@@ -35,7 +38,7 @@ public class HomeController {
             return "register";
         }
         if (userService.checkEmail(user)) {
-            result.rejectValue("email","user.email",
+            result.rejectValue("email", "user.email",
                     "An account already exists for this email.");
             return "register";
         }
@@ -47,16 +50,5 @@ public class HomeController {
         userService.save(user);
         return "login";
     }
-
-    @GetMapping("/admin")
-    public String showDashboard() {
-        return "admin/index";
-    }
-
-
-
-
-
-
 
 }

@@ -5,7 +5,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,16 +22,11 @@ public class Seat implements Comparable<Seat> {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
-    @Pattern(regexp = "[A-Z]")
     @Column(columnDefinition = "CHAR(1)", name = "row_of_seat")
     private Character row;
 
-    @NotNull
-    @Min(1)
     private Integer number;
 
-    @NotEmpty
     @ManyToMany(mappedBy = "seats")
     private List<Hall> halls = new ArrayList<>();
 
@@ -36,14 +34,12 @@ public class Seat implements Comparable<Seat> {
     private List<Reservation> reservation;
 
 
-
-
     public Seat(Character row, Integer number) {
         this.row = row;
         this.number = number;
     }
 
-    public String getFullName(){
+    public String getFullName() {
         return row + "-" + number;
     }
 
