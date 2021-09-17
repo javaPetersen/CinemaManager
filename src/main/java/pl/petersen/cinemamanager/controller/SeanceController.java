@@ -38,12 +38,8 @@ public class SeanceController {
     }
 
     @GetMapping("/add")
-    public String addSeanceForm(Model model, Long seanceId,
-                                @RequestParam(required = false) boolean error) {
-        if (error) {
-            model.addAttribute("error", "Nie można utworzyć seansu w wybranej sali, " +
-                    "ponieważ w tym czasie odbywa się w niej inny seans.");
-        }
+    public String addSeanceForm(@RequestParam(required = false) Long seanceId,
+                                Model model) {
         Seance seance;
         if (seanceId != null) {
             seance = seanceService.findById(seanceId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
@@ -56,16 +52,21 @@ public class SeanceController {
 
     @PostMapping("/add")
     public String processAddingForm(@Valid Seance seance,
-                                    BindingResult result) {
+                                    BindingResult result,
+                                    RedirectAttributes redirectAttributes) {
         if (result.hasErrors()) {
             return "/admin/seance/add-seance-form";
         }
         System.out.println(seanceService.isHallAvailable(seance));
         if (!seanceService.isHallAvailable(seance)) {
+         redirectAttributes.addFlashAttribute("error",
+                 "Nie można utworzyć seansu w wybranej sali, " +
+                    "ponieważ w tym czasie odbywa się w niej inny seans.");
+
             if (seance.getId() == null) {
-                seance.setId(-1L);
+                return "redirect:/admin/seances/add";
             }
-            return "redirect:/admin/seances/add?error=true&seanceId=" + seance.getId();
+            return "redirect:/admin/seances/add?seanceId=" + seance.getId();
         }
         seanceService.save(seance);
         return "redirect:/admin/seances/all";
@@ -79,9 +80,6 @@ public class SeanceController {
         }
         return "redirect:/admin/seances/all";
     }
-
-
-
 
 
     @GetMapping("/all")
