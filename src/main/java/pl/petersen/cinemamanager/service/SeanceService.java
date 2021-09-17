@@ -97,4 +97,8 @@ public class SeanceService {
                 .sorted()
                 .collect(Collectors.toList());
     }
+
+    public long countAllSeances() {
+        return seanceRepository.count();
+    }
 }

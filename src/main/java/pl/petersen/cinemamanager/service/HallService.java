@@ -77,8 +77,8 @@ public class HallService {
 
 
     private Seat checkSeatExistence(Character letter, Integer num) {
-        if (seatRepository.count() > 0) {
-            List<Seat> existingSeats = getSeats();
+        List<Seat> existingSeats = getSeats();
+        if (existingSeats.size() > 0) {
             for (Seat existingSeat : existingSeats) {
                 if (existingSeat.getRow().equals(letter)
                         && existingSeat.getNumber().equals(num)) {

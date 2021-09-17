@@ -19,11 +19,12 @@
 </div>
 <div id="content-wrapper" class="d-flex flex-column">
     <div id="content">
+        <div style="width: 70%;padding: 12px; border: 2px solid black; margin: 5px auto 8px;text-align: center; font-size: 20px; ">EKRAN</div>
         <table style="margin-left: auto; margin-right: auto; border-spacing: 10px; border-collapse: separate; ">
             <tbody>
             <c:forEach items="${seats}" var="s" varStatus="loop">
 
-                <td style="padding: 12px; border: 2px solid black; vertical-align: center; text-align: center; font-size: 20px; ">
+                <td style="padding: 9px; border: 2px solid black; vertical-align: center; text-align: center; font-size: 15px; ">
                     <div>${s.row}-${s.number}</div>
                 </td>
                 <c:if test="${(loop.index+1) mod hallDetails.numOfSeatsPerRow == 0}">

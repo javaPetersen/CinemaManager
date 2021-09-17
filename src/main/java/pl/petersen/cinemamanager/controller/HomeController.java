@@ -1,5 +1,6 @@
 package pl.petersen.cinemamanager.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,6 +18,8 @@ public class HomeController {
 
     private final UserService userService;
 
+
+    @Autowired
     public HomeController(UserService userService) {
         this.userService = userService;
     }
@@ -47,11 +50,5 @@ public class HomeController {
         userService.save(user);
         return "login";
     }
-
-    @GetMapping("/admin")
-    public String showDashboard() {
-        return "admin/index";
-    }
-
 
 }

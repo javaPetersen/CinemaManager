@@ -56,6 +56,12 @@ public class ReservationController {
     public String processingReservation(@Valid Reservation reservation,
                                         BindingResult result,
                                         RedirectAttributes redirectAttributes) {
+        if (reservationService.checkIfAlreadyReserved(reservation)) {
+            redirectAttributes.addFlashAttribute("error",
+                    "To miejsce jest już zajęte.");
+            return "redirect:/admin/reservation/create?seanceId=" + reservation.getSeance().getId();
+
+        }
         if (result.hasErrors()) {
             redirectAttributes.addFlashAttribute("error",
                     "Musisz wybrać użytkownika i co najmniej jedno miejsce.");

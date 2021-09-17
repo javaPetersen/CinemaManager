@@ -32,7 +32,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                .defaultSuccessUrl("/admin/movies/all")
+                .defaultSuccessUrl("/admin")
                 .and()
                 .logout()
                 .invalidateHttpSession(true)

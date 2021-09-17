@@ -46,7 +46,7 @@
                     <td>${r.seance.time}</td>
                     <td>${r.user.fullName}</td>
 
-                    <td><select disabled multiple="true" style="width: 100px; height: auto">
+                    <td><select disabled multiple class="custom-select" size="2" style="width: 80px;">
                         <c:forEach items="${r.seats}" var="s" varStatus="loop">
                             <option>${s.fullName}</option>
                         </c:forEach>

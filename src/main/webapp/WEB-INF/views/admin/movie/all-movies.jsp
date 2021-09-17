@@ -52,7 +52,7 @@
                     <form action="/admin/movies/add">
                         <td style='display: inline-block; padding: 1px'>
                             <button name="movieId" value="${m.id}" type="submit" class="btn btn-outline-secondary">
-                                EDIT
+                                EDYTUJ
                             </button>
                         </td>
                     </form>
@@ -62,7 +62,7 @@
                             <input name="deleteId" value="${m.id}" hidden>
                             <button onclick="return confirm('Are you sure?')"
                                     type="submit"
-                                    class="btn btn-outline-danger">DELETE
+                                    class="btn btn-outline-danger">USUŃ
                             </button>
                         </td>
                     </form>
