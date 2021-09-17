@@ -24,6 +24,10 @@
         <a href="/admin/seances/add" class="btn btn-outline-success" role="button" aria-pressed="true">Zaplanuj seans</a>
     </div>
 </div>
+<div class="d-sm-flex align-items-center justify-content-between mb-4 text-danger">
+    <c:if test="${not empty error}">
+        <h5>${error}</h5>
+    </c:if> </div>
 <div id="content-wrapper" class="d-flex flex-column">
     <div id="content">
         <table class="table">
@@ -54,23 +58,16 @@
                             </button>
                         </td>
                     </form>
-                    <form action="/admin/seances/reservation" method="get">
-                        <td style='display: inline-block; padding: 1px;'>
-                            <button type="submit" name="reservationId" value="${s.id}"
-                                    class="btn btn-outline-info">Zarezerwuj
+                    <form action="/admin/seances/delete" method="post">
+                        <td style='display: inline-block; padding: 1px'>
+                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                            <input name="deleteId" value="${s.id}" hidden>
+                            <button onclick="return confirm('Are you sure?')"
+                                    type="submit"
+                                    class="btn btn-outline-danger">USUŃ
                             </button>
                         </td>
                     </form>
-<%--                    <form action="/admin/hall/delete" method="post">--%>
-<%--                        <td style='display: inline-block; padding: 1px'>--%>
-<%--                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>--%>
-<%--                            <input name="deleteId" value="${s.id}" hidden>--%>
-<%--                            <button onclick="return confirm('Are you sure?')"--%>
-<%--                                    type="submit"--%>
-<%--                                    class="btn btn-outline-danger">USUŃ--%>
-<%--                            </button>--%>
-<%--                        </td>--%>
-<%--                    </form>--%>
                 </tr>
             </c:forEach>
             </tbody>

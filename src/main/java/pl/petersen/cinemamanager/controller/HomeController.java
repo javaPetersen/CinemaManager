@@ -1,6 +1,5 @@
 package pl.petersen.cinemamanager.controller;
 
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,11 +19,6 @@ public class HomeController {
 
     public HomeController(UserService userService) {
         this.userService = userService;
-    }
-
-    @GetMapping("/login")
-    public String loginForm() {
-        return "login2";
     }
 
 

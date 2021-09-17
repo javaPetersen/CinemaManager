@@ -25,7 +25,7 @@ public class Movie {
     @Size(min = 1, max = 200)
     private String title;
 
-    @Size(min = 1, max = 200)
+    @Size(max = 200)
     private String originalTitle;
 
     @NotEmpty

@@ -12,10 +12,12 @@ import java.util.Optional;
 public class TicketTypeService {
 
     private final TicketTypeRepository ticketTypeRepository;
+    private final SeanceService seanceService;
 
     @Autowired
-    public TicketTypeService(TicketTypeRepository ticketTypeRepository) {
+    public TicketTypeService(TicketTypeRepository ticketTypeRepository, SeanceService seanceService) {
         this.ticketTypeRepository = ticketTypeRepository;
+        this.seanceService = seanceService;
     }
 
     public Optional<TicketType> findById(Long ticketTypeId) {
@@ -30,7 +32,12 @@ public class TicketTypeService {
         return ticketTypeRepository.findAll();
     }
 
-    public void deleteById(Long deleteId) {
-        ticketTypeRepository.deleteById(deleteId);
+    public Boolean deleteById(Long deleteId) {
+        long count = seanceService.countByTicketTypesId(deleteId);
+        if (count == 0) {
+            ticketTypeRepository.deleteById(deleteId);
+            return true;
+        }
+        return false;
     }
 }

@@ -20,11 +20,15 @@ public class ReservationService {
         reservationRepository.save(reservation);
     }
 
-    public List<Seat> findReservationsBySeanceId(Long reservationId) {
-        return reservationRepository.findReservationsBySeanceId(reservationId);
+    public List<Seat> findReservationsBySeanceId(Long seanceId) {
+        return reservationRepository.findReservationsBySeanceId(seanceId);
     }
 
     public List<Reservation> findAll() {
         return reservationRepository.findAll();
+    }
+
+    public long countBySeanceId(Long seanceId) {
+        return reservationRepository.countBySeanceId(seanceId);
     }
 }

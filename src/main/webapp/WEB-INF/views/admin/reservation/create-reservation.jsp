@@ -23,7 +23,7 @@
         <table>
         <form:form modelAttribute="reservation" method="post">
             <form:input path="id" hidden="true"/>
-            <form:input path="seance" hidden="true"/>
+            <form:input path="seance" hidden="true" />
             <tr>
                 <td><form:label path="user">Wybierz użytkownika:</form:label> </td>
                 <td><form:select cssClass="form-select" path="user" items="${users}" itemLabel="fullName" itemValue="id"/> </td>
@@ -31,7 +31,7 @@
             </tr>
             <tr>
                 <td><form:label path="seats">Wybierz miejsca:</form:label></td>
-                <td><form:select path="seats" items="${available}" itemValue="id" itemLabel="fullName" multiple="true" size="5" required="true" cssClass="form-select" cssStyle="width: 100px"/></td>
+                <td><form:select path="seats" items="${activeSeats}" itemValue="id" itemLabel="fullName" multiple="true" size="5" required="true" cssClass="form-select" cssStyle="width: 100px"/></td>
                 <td><form:errors path="seats" cssClass="text-danger"/></td>
             </tr>
            <tr>
@@ -42,9 +42,9 @@
         <div style="width: 70%;padding: 12px; border: 2px solid black; margin: 5px auto 8px;text-align: center; font-size: 20px; ">EKRAN</div>
         <table style="margin-left: auto; margin-right: auto; border-spacing: 10px; border-collapse: separate; ">
             <tbody>
-            <c:forEach items="${seances.hall.seats}" var="s" varStatus="loop">
+            <c:forEach items="${allSeats}" var="s" varStatus="loop">
                     <c:choose>
-                        <c:when test="${reservations.contains(s)}">
+                        <c:when test="${reservedSeats.contains(s)}">
                             <td style="background-color: darkslategrey;padding: 9px; border: 2px solid black; vertical-align: center; text-align: center; font-size: 15px; color: white ">
                                 <div>${s.fullName}</div>
                             </td>
@@ -55,7 +55,7 @@
                             </td>
                         </c:otherwise>
                     </c:choose>
-                    <c:if test="${(loop.index+1) mod seances.hall.numOfSeatsPerRow == 0}">
+                    <c:if test="${(loop.index+1) mod reservation.seance.hall.numOfSeatsPerRow == 0}">
                         <tr></tr>
                     </c:if>
             </c:forEach>

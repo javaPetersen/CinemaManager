@@ -24,12 +24,17 @@
         <a href="/admin/movies/add" class="btn btn-outline-success" role="button" aria-pressed="true">Dodaj nowy film</a>
     </div>
 </div>
+<div class="d-sm-flex align-items-center justify-content-between mb-4 text-danger">
+    <c:if test="${not empty error}">
+        <h5>${error}</h5>
+    </c:if> </div>
 <div id="content-wrapper" class="d-flex flex-column">
     <div id="content">
         <table class="table">
             <thead class="thead-dark">
             <tr>
                 <th scope="col">#</th>
+                <th scope="col">Plakat</th>
                 <th scope="col">Tytuł</th>
                 <th scope="col">Czas Trwania</th>
                 <th scope="col">Reżyser</th>
@@ -40,7 +45,7 @@
             <c:forEach items="${movies}" var="m" varStatus="loop">
                 <tr>
                     <th scope="row">${loop.index+1}</th>
-                    <td><img src="<c:url value="${pageContext.request.contextPath}${m.poster}"/>" height="80px"/></td>
+                    <td><img src="${m.poster}" alt="${m.title} poster" height="80px"/></td>
                     <td>${m.title}</td>
                     <td>${m.convertedLength}</td>
                     <td>${m.director}</td>

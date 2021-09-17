@@ -18,4 +18,5 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
     List<Seat> findReservationsBySeanceId(Long id);
 
 
+    long countBySeanceId(Long seanceId);
 }

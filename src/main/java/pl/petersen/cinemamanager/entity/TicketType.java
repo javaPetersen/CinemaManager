@@ -28,7 +28,6 @@ public class TicketType {
     @DecimalMin("0.00")
     private BigDecimal price;
 
-    @NotEmpty
     @ManyToMany(mappedBy = "ticketTypes")
     private Set<Seance> seances = new HashSet<>();
 

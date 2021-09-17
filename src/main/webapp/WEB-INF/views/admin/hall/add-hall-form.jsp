@@ -42,7 +42,6 @@
                 <tr>
                     <td><form:button class="btn btn-outline-secondary">Zapisz</form:button></td>
                 </tr>
-
             </form:form>
         </table>
     </div>
