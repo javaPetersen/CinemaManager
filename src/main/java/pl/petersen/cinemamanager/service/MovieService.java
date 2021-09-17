@@ -1,8 +1,10 @@
 package pl.petersen.cinemamanager.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.server.ResponseStatusException;
 import pl.petersen.cinemamanager.entity.Movie;
 import pl.petersen.cinemamanager.repository.MovieRepository;
 
@@ -27,6 +29,16 @@ public class MovieService {
     public void save(Movie movie) {
         movieRepository.save(movie);
     }
+
+    public Boolean ifMovieHasActiveSeance(Movie movie) {
+        Movie oldMovie = movieRepository.findById(movie.getId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        long count = seanceService.countByMovieId(movie.getId());
+        if (count > 0) {
+            return movie.getLength() <= oldMovie.getLength();
+        }
+        return true;
+    }
+
 
     public List<Movie> findAllOrderByNewest() {
         return movieRepository.findAllOrderCreatedOn();

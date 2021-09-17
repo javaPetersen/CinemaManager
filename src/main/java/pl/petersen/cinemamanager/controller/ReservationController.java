@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pl.petersen.cinemamanager.entity.Reservation;
 import pl.petersen.cinemamanager.entity.Seance;
 import pl.petersen.cinemamanager.entity.Seat;
@@ -64,9 +65,12 @@ public class ReservationController {
 
     @PostMapping("/reservation/create")
     public String processingReservation(@Valid Reservation reservation,
-                                        BindingResult result) {
+                                        BindingResult result,
+                                        RedirectAttributes redirectAttributes) {
         if (result.hasErrors()) {
-            return "/admin/reservation/create-reservation";
+            redirectAttributes.addFlashAttribute("error",
+                    "Musisz wybrać użytkownika i co najmniej jedno miejsce.");
+            return "redirect:/admin/reservation/create?seanceId=" + reservation.getSeance().getId();
         }
         reservationService.save(reservation);
         return "redirect:/admin/seances/all";

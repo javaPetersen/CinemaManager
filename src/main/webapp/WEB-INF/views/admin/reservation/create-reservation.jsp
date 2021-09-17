@@ -18,6 +18,10 @@
         <a onclick="window.history.back()" class="btn btn-outline-success" role="button" aria-pressed="true">Powrót</a>
     </div>
 </div>
+<div class="d-sm-flex align-items-center justify-content-between mb-4 text-danger">
+    <c:if test="${not empty error}">
+        <h5>${error}</h5>
+    </c:if> </div>
 <div id="content-wrapper" class="d-flex flex-column">
     <div id="content">
         <table>

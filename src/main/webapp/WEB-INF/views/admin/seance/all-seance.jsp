@@ -58,6 +58,13 @@
                             </button>
                         </td>
                     </form>
+                    <form action="/admin/reservation/create">
+                        <td style='display: inline-block; padding: 1px;'>
+                            <button name="seanceId" value="${s.id}" type="submit" class="btn btn-outline-secondary">
+                                Zarezerwuj
+                            </button>
+                        </td>
+                    </form>
                     <form action="/admin/seances/delete" method="post">
                         <td style='display: inline-block; padding: 1px'>
                             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
