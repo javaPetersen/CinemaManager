@@ -5,7 +5,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,14 +39,12 @@ public class Seat implements Comparable<Seat> {
     private List<Reservation> reservation;
 
 
-
-
     public Seat(Character row, Integer number) {
         this.row = row;
         this.number = number;
     }
 
-    public String getFullName(){
+    public String getFullName() {
         return row + "-" + number;
     }
 

@@ -35,7 +35,7 @@ public class HomeController {
             return "register";
         }
         if (userService.checkEmail(user)) {
-            result.rejectValue("email","user.email",
+            result.rejectValue("email", "user.email",
                     "An account already exists for this email.");
             return "register";
         }
@@ -52,11 +52,6 @@ public class HomeController {
     public String showDashboard() {
         return "admin/index";
     }
-
-
-
-
-
 
 
 }

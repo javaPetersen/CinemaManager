@@ -125,6 +125,7 @@
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Operacje:</h6>
                     <a class="collapse-item" href="/admin/seances/all">Wszystkie seanse</a>
+                    <a class="collapse-item" href="/admin/seances/inactive">Zakończone seanse</a>
                     <a class="collapse-item" href="/admin/seances/add">Zaplanuj seans</a>
                 </div>
             </div>

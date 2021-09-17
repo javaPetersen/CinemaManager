@@ -20,49 +20,47 @@
 
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Rezerwacje:</h1>
+        <h1 class="h3 mb-0 text-gray-800">Zakończone seanse:</h1>
+        <a href="/admin/seances/add" class="btn btn-outline-success" role="button" aria-pressed="true">Zaplanuj seans</a>
     </div>
 </div>
+<div class="d-sm-flex align-items-center justify-content-between mb-4 text-danger">
+    <c:if test="${not empty error}">
+        <h5>${error}</h5>
+    </c:if> </div>
 <div id="content-wrapper" class="d-flex flex-column">
     <div id="content">
         <table class="table">
             <thead class="thead-dark">
             <tr>
                 <th scope="col">#</th>
-                <th scope="col">Seans</th>
+                <th scope="col">Film</th>
                 <th scope="col">Data</th>
                 <th scope="col">Godzina</th>
-                <th scope="col">Użytkownik</th>
-                <th scope="col">Miejsca</th>
-                <th scope="col">Akcja</th>
+                <th scope="col">Czas trwania</th>
+                <th scope="col">Sala</th>
+                <th scope="col" colspan="2" style="text-align:center">Akcja</th>
             </tr>
             </thead>
             <tbody>
-            <c:forEach items="${allReservations}" var="r" varStatus="loop">
+            <c:forEach items="${inactiveSeances}" var="s" varStatus="loop">
                 <tr>
                     <th scope="row">${loop.index+1}</th>
-                    <td>${r.seance.movie.title}</td>
-                    <td>${r.seance.date}</td>
-                    <td>${r.seance.time}</td>
-                    <td>${r.user.fullName}</td>
-
-                    <td><select disabled multiple="true" style="width: 100px; height: auto">
-                        <c:forEach items="${r.seats}" var="s" varStatus="loop">
-                            <option>${s.fullName}</option>
-                        </c:forEach>
-                    </select></td>
-
-                    <form action="/admin/reservation/delete" method="post">
+                    <td>${s.movie.title}</td>
+                    <td>${s.date}</td>
+                    <td>${s.time}</td>
+                    <td>${s.movie.convertedLength}</td>
+                    <td>${s.hall.name}</td>
+                    <form action="/admin/seances/delete" method="post">
                         <td style='display: inline-block; padding: 1px'>
                             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                            <input name="deleteId" value="${r.id}" hidden>
+                            <input name="deleteId" value="${s.id}" hidden>
                             <button onclick="return confirm('Are you sure?')"
                                     type="submit"
                                     class="btn btn-outline-danger">USUŃ
                             </button>
                         </td>
                     </form>
-
                 </tr>
             </c:forEach>
             </tbody>

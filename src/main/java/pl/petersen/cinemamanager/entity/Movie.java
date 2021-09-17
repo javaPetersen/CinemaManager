@@ -1,13 +1,12 @@
 package pl.petersen.cinemamanager.entity;
 
 
-import lombok.*;
-import org.springframework.web.multipart.MultipartFile;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
-import javax.servlet.annotation.MultipartConfig;
 import javax.validation.constraints.*;
-import java.awt.*;
 import java.time.LocalDateTime;
 
 

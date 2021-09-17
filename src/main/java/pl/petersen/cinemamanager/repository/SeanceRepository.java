@@ -18,4 +18,8 @@ public interface SeanceRepository extends JpaRepository<Seance, Long> {
     long countByTicketTypesId(Long ticketTypeId);
 
     long countByMovieId(Long id);
+
+    @Query("select s from Seance s where s.date < current_date order by s.date, s.time")
+    List<Seance> findAllInactiveSeances();
+
 }

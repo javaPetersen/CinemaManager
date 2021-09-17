@@ -19,4 +19,7 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
 
 
     long countBySeanceId(Long seanceId);
+
+    @Query("select r from Reservation r ORDER BY r.seance.date, r.seance.time")
+    List<Reservation> findAllOrderByDate();
 }

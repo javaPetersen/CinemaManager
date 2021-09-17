@@ -24,11 +24,19 @@ public class ReservationService {
         return reservationRepository.findReservationsBySeanceId(seanceId);
     }
 
-    public List<Reservation> findAll() {
-        return reservationRepository.findAll();
+    public List<Reservation> findAllOrderByDate() {
+        return reservationRepository.findAllOrderByDate();
     }
 
     public long countBySeanceId(Long seanceId) {
         return reservationRepository.countBySeanceId(seanceId);
+    }
+
+    public List<Reservation> findAll() {
+        return reservationRepository.findAll();
+    }
+
+    public void deleteById(Long deleteId) {
+        reservationRepository.deleteById(deleteId);
     }
 }

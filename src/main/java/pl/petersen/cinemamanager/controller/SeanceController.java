@@ -59,9 +59,9 @@ public class SeanceController {
         }
         System.out.println(seanceService.isHallAvailable(seance));
         if (!seanceService.isHallAvailable(seance)) {
-         redirectAttributes.addFlashAttribute("error",
-                 "Nie można utworzyć seansu w wybranej sali, " +
-                    "ponieważ w tym czasie odbywa się w niej inny seans.");
+            redirectAttributes.addFlashAttribute("error",
+                    "Nie można utworzyć seansu w wybranej sali, " +
+                            "ponieważ w tym czasie odbywa się w niej inny seans.");
 
             if (seance.getId() == null) {
                 return "redirect:/admin/seances/add";
@@ -105,6 +105,16 @@ public class SeanceController {
     @ModelAttribute("halls")
     public List<Hall> allHalls() {
         return hallService.findAll();
+    }
+
+    @GetMapping("/inactive")
+    public String showInactiveSeances() {
+        return "/admin/seance/all-inactive-seances";
+    }
+
+    @ModelAttribute("inactiveSeances")
+    public List<Seance> inactiveSeances() {
+        return seanceService.findAllInactiveSeances();
     }
 
 }

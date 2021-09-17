@@ -1,10 +1,8 @@
 package pl.petersen.cinemamanager.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.BindingResult;
 import pl.petersen.cinemamanager.entity.User;
 import pl.petersen.cinemamanager.repository.UserRepository;
 

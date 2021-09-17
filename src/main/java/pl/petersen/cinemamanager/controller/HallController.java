@@ -8,13 +8,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.util.WebUtils;
 import pl.petersen.cinemamanager.entity.Hall;
 import pl.petersen.cinemamanager.entity.Seat;
 import pl.petersen.cinemamanager.service.HallService;
 
 import javax.validation.Valid;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 

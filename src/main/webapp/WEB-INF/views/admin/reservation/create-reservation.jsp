@@ -25,7 +25,7 @@
 <div id="content-wrapper" class="d-flex flex-column">
     <div id="content">
         <table>
-        <form:form modelAttribute="reservation" method="post">
+        <form:form modelAttribute="reservation" method="post" action="/admin/reservation/create">
             <form:input path="id" hidden="true"/>
             <form:input path="seance" hidden="true" />
             <tr>
