@@ -22,16 +22,11 @@ public class Seat implements Comparable<Seat> {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
-    @Pattern(regexp = "[A-Z]")
     @Column(columnDefinition = "CHAR(1)", name = "row_of_seat")
     private Character row;
 
-    @NotNull
-    @Min(1)
     private Integer number;
 
-    @NotEmpty
     @ManyToMany(mappedBy = "seats")
     private List<Hall> halls = new ArrayList<>();
 

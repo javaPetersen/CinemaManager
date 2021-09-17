@@ -52,12 +52,12 @@ public class MovieController {
     public String processForm(@Valid Movie movie,
                               BindingResult bindingResult,
                               RedirectAttributes redirectAttributes) {
+
         if (!movieService.ifMovieHasActiveSeance(movie)) {
             redirectAttributes.addFlashAttribute("error",
                     "Nie można zwiększyć czasu trwania filmu, ponieważ ma on aktywny seans");
             return "redirect:/admin/movies/add?movieId=" + movie.getId();
         }
-
         if (bindingResult.hasErrors()) {
             return "admin/movie/add-movie-form";
         }

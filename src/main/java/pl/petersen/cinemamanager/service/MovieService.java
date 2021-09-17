@@ -27,6 +27,9 @@ public class MovieService {
     }
 
     public Boolean ifMovieHasActiveSeance(Movie movie) {
+        if (movie.getId() == null) {
+            return true;
+        }
         Movie oldMovie = movieRepository.findById(movie.getId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         long count = seanceService.countByMovieId(movie.getId());
         if (count > 0) {
