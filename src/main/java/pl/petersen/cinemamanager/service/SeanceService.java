@@ -42,8 +42,8 @@ public class SeanceService {
         seances.removeIf(s -> s.getId().equals(seance.getId()));
         return seances.stream()
                 .filter(s -> s.getDate().equals(seance.getDate()) && s.getHall().equals(seance.getHall()))
-                .allMatch(s -> seance.getTime().isAfter(s.getTime().plusMinutes(s.getMovie().getLength()))
-                        || seance.getTime().plusMinutes(seance.getMovie().getLength()).isBefore(s.getTime()));
+                .allMatch(s -> seance.getLocalDateTime().isAfter(s.getLocalDateTime().plusMinutes(s.getMovie().getLength()))
+                        || seance.getLocalDateTime().plusMinutes(seance.getMovie().getLength()).isBefore(s.getLocalDateTime()));
     }
 
     public long countByHallId(Long hallId) {

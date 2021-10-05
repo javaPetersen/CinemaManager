@@ -10,6 +10,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.HashSet;
 import java.util.List;
@@ -47,6 +48,10 @@ public class Seance {
 
     @OneToMany(mappedBy = "seance")
     private List<Reservation> reservations;
+
+    public LocalDateTime getLocalDateTime() {
+        return LocalDateTime.of(date, time);
+    }
 
 
 }
