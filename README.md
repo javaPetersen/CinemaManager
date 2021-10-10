@@ -39,7 +39,7 @@ At first, you have to create database on your local mysql, then configure your d
 Then you can run application in your IntelliJ. If everything is set correctly app should run without any errors. 
 Next step is creating your admin user, you have to do it manually (remember to encrypt your password, you can use https://bcrypt-generator.com/ -
 simply enter your password as String, click encrypt button and copy your hashed password. 
-Also remember to set true in active column).
+Also remember to set true in active column and set role to ROLE_ADMIN).
 When you finish it, you could now log in as administrator.
 Go to http://localhost:8080/login  enter your email and password, and here we go! :)
 
