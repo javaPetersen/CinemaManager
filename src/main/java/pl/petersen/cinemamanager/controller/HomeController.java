@@ -48,7 +48,7 @@ public class HomeController {
             return "register";
         }
         userService.save(user);
-        return "login";
+        return "redirect:login";
     }
 
 }

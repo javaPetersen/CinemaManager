@@ -13,10 +13,10 @@ import java.util.stream.Collectors;
 public class MyUserDetails implements UserDetails {
 
 
-    private String email;
-    private String password;
-    private boolean isActive;
-    private List<GrantedAuthority> roles;
+    private final String email;
+    private final String password;
+    private final boolean isActive;
+    private final List<GrantedAuthority> roles;
 
     public MyUserDetails(User user) {
         this.email = user.getEmail();
