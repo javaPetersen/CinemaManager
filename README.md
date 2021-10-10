@@ -29,7 +29,7 @@ Technologies and tools used:
 * Bootstrap
 
 
-#How to use it?
+# How to use it?
 At first, you have to create database on your local mysql, then configure your database connection by adding environment variables:
 * DB_NAME (name of your database)
 * DB_USER (your mysql username)
