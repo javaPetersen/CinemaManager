@@ -11,7 +11,7 @@
     <groupId>pl.petersen</groupId>
     <artifactId>CinemaManager</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
     <name>CinemaManager</name>
     <description>CinemaManager</description>
     <properties>
@@ -64,6 +64,15 @@
             <artifactId>spring-security-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.tomcat.embed</groupId>
+            <artifactId>tomcat-embed-jasper</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>
