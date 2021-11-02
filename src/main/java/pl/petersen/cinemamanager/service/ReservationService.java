@@ -7,6 +7,7 @@ import pl.petersen.cinemamanager.entity.Seat;
 import pl.petersen.cinemamanager.repository.ReservationRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ReservationService {
@@ -20,6 +21,10 @@ public class ReservationService {
 
     public void save(Reservation reservation) {
         reservationRepository.save(reservation);
+    }
+
+    public Optional<Reservation> findById(Long id) {
+        return reservationRepository.findById(id);
     }
 
     public Boolean checkIfAlreadyReserved(Reservation reservation) {

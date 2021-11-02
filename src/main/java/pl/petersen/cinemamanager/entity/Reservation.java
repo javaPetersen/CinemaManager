@@ -6,6 +6,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -27,7 +28,7 @@ public class Reservation {
 
     @NotEmpty
     @ManyToMany
-    private List<Seat> seats;
+    private List<Seat> seats = new ArrayList<>();
 
 
 }
