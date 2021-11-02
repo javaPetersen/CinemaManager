@@ -91,6 +91,7 @@ public class UserPanelController {
             return "redirect:/user/reservation/create?seanceId=" + reservation.getSeance().getId();
         }
         userService.saveReservation(reservation);
+        userService.sendAcknowledgementEmail(reservation);
         return "redirect:/user";
     }
 

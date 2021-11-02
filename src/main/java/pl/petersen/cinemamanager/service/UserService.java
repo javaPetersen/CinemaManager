@@ -3,14 +3,17 @@ package pl.petersen.cinemamanager.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import pl.petersen.cinemamanager.email.EmailSendingService;
 import pl.petersen.cinemamanager.entity.Reservation;
 import pl.petersen.cinemamanager.entity.Seance;
 import pl.petersen.cinemamanager.entity.Seat;
 import pl.petersen.cinemamanager.entity.User;
 import pl.petersen.cinemamanager.repository.UserRepository;
 
+import javax.mail.MessagingException;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -19,13 +22,15 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final ReservationService reservationService;
     private final SeanceService seanceService;
+    private final EmailSendingService emailSendingService;
 
     @Autowired
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, ReservationService reservationService, SeanceService seanceService) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, ReservationService reservationService, SeanceService seanceService, EmailSendingService emailSendingService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.reservationService = reservationService;
         this.seanceService = seanceService;
+        this.emailSendingService = emailSendingService;
     }
 
 
@@ -91,4 +96,20 @@ public class UserService {
         reservationService.save(reservation);
     }
 
+    public void sendAcknowledgementEmail(Reservation reservation) {
+        String email = reservation.getUser().getEmail();
+        String subject = "Reservation #" + reservation.getId() + " confirmed";
+        String body = "Hello, " + reservation.getUser().getFullName() + "\n" +
+                "Your reservation #" + reservation.getId() + " for: \nMovie:" + reservation.getSeance().getMovie().getTitle()
+                + "\nDate:" + reservation.getSeance().getDate().toString()
+                + "\nTime:" + reservation.getSeance().getTime().toString()
+                + "\nseats: " + reservation.getSeats().stream().map(Seat::getFullName).collect(Collectors.joining(", "))
+                + "\nhas been confirmed";
+
+        try {
+            emailSendingService.sendMessage(email, subject, body);
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+    }
 }

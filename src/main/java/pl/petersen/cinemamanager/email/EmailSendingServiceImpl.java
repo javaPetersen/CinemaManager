@@ -1,9 +1,12 @@
 package pl.petersen.cinemamanager.email;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
+
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 
 @Service
 public class EmailSendingServiceImpl implements EmailSendingService{
@@ -15,19 +18,19 @@ public class EmailSendingServiceImpl implements EmailSendingService{
         this.emailConfig = emailConfig;
     }
 
-    private SimpleMailMessage setMessage(String email, String subject, String body) {
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom(emailConfig.getHost());
-        message.setTo(email);
-        message.setSubject(subject);
-        message.setText(body);
-        return message;
-    }
 
-    public void sendMessage(String email, String subject, String body) {
+
+    public void sendMessage(String email, String subject, String body) throws MessagingException {
         JavaMailSenderImpl sender = setSender();
-        SimpleMailMessage message = setMessage(email, subject, body);
-        sender.send(message);
+        MimeMessage mimeMessage = sender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
+
+        helper.setTo(email);
+        helper.setFrom(emailConfig.getUsername());
+        helper.setSubject(subject);
+        helper.setText(body);
+
+        sender.send(mimeMessage);
     }
 
     private JavaMailSenderImpl setSender() {
