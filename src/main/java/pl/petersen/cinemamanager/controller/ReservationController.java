@@ -48,7 +48,7 @@ public class ReservationController {
         model.addAttribute("activeSeats", seanceService.findAllAvailableSeatsBySeanceId(seanceId));
         model.addAttribute("reservedSeats", seanceService.findAllReservedSeatsBySeanceId(seanceId));
         model.addAttribute("reservation", reservation);
-        return "/admin/reservation/create-reservation";
+        return "admin/reservation/create-reservation";
     }
 
 
@@ -92,6 +92,7 @@ public class ReservationController {
     private List<User> allUsers() {
         return userService.findAll();
     }
+
 
 
 }

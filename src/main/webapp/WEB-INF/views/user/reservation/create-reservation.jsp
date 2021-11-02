@@ -9,7 +9,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<jsp:include page="../fragments/admin-header.jsp"/>
+<jsp:include page="../fragments/user-header.jsp"/>
 <div class="container-fluid">
 
     <!-- Page Heading -->
@@ -25,20 +25,19 @@
 <div id="content-wrapper" class="d-flex flex-column">
     <div id="content">
         <table>
-        <form:form modelAttribute="reservation" method="post" action="/admin/reservation/create">
+        <form:form modelAttribute="reservation" method="post" action="/user/reservation/create">
             <form:input path="id" hidden="true"/>
             <form:input path="seance" hidden="true" />
-            <tr>
-                <td><form:label path="user">Wybierz użytkownika:</form:label> </td>
-                <td><form:select cssClass="form-select" path="user" items="${users}" itemLabel="fullName" itemValue="id"/> </td>
-                <td><form:errors cssClass="text-danger" path="user"/> </td>
-            </tr>
+            <form:input path="user" hidden="true" />
             <tr>
                 <td><form:label path="seats">Wybierz miejsca:</form:label></td>
                 <td><form:select path="seats" items="${activeSeats}" itemValue="id" itemLabel="fullName" multiple="true" size="5" required="true" cssClass="form-select" cssStyle="width: 100px"/></td>
                 <td><form:errors path="seats" cssClass="text-danger"/></td>
             </tr>
-            <td><form:button>ZAPISZ</form:button></td>
+           <tr>
+               <td><form:button>ZAPISZ</form:button></td>
+           </tr>
+        </form:form>
         </table>
         <div style="width: 70%;padding: 12px; border: 2px solid black; margin: 5px auto 8px;text-align: center; font-size: 20px; ">EKRAN</div>
         <table style="margin-left: auto; margin-right: auto; border-spacing: 10px; border-collapse: separate; ">
@@ -47,7 +46,7 @@
                     <c:choose>
                         <c:when test="${reservedSeats.contains(s)}">
                             <td style="background-color: darkslategrey;padding: 9px; border: 2px solid black; vertical-align: center; text-align: center; font-size: 15px; color: white ">
-                                <div disabled="true">${s.fullName}</div>
+                                <div>${s.fullName}</div>
                             </td>
                         </c:when>
                         <c:otherwise>
@@ -62,10 +61,6 @@
             </c:forEach>
             </tbody>
         </table>
-        <tr>
-
-        </tr>
-        </form:form>
     </div>
 </div>
-<jsp:include page="../fragments/admin-footer.jsp"/>
+<jsp:include page="../fragments/user-footer.jsp"/>
